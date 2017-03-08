@@ -5,7 +5,7 @@ const https = require('http-debug').https
 const test = require('tape')
 
 const StackPathCDN = require('../index')
-const stackpath = new StackPathCDN(process.env.ALIAS, process.env.KEY, process.env.SECRET)
+const stackpath = new StackPathCDN(process.env.STACKPATH_ALIAS, process.env.STACKPATH_KEY, process.env.STACKPATH_SECRET)
 
 const time = Date.now().toString()
 
@@ -19,10 +19,11 @@ test('post', function (t) {
     name: time,
     url: 'http://www.example.com'
   }
-  stackpath.post('zones/pull.json', zone, function (err, res) {
+  stackpath.post('sites', zone, function (err, res) {
+    console.log(res)
     t.error(err, 'post (js object) without error')
     t.ok(res.data.pullzone.id, 'post with response')
-    stackpath.delete('zones/pull.json/' + res.data.pullzone.id, function (eerr, rres) {
+    stackpath.delete('sites/' + res.data.pullzone.id, function (eerr, rres) {
       t.error(eerr, 'delete without error')
       t.equal(rres.code, 200, 'delete successful')
     })
