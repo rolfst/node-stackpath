@@ -1,49 +1,47 @@
 #!/usr/bin/env node
 /*********************************************************
- * Example script for uploading ssl certs to maxcdn
- * pull zone.
+ * Example script for uploading ssl certs to StackPath.
  *
  *
  * Setup to run this script:
  *
- * $ npm install maxcdn http-debug
+ * $ npm install stackpath http-debug
  *
  ********************************************************/
 
-var path = require('path');
-var https = require('http-debug').https;
-var fs = require('fs');
-var format = require('util').format;
-var MaxCDN = require('maxcdn');
+const path = require('path')
+const https = require('http-debug').https
+const fs = require('fs')
+const format = require('util').format
+const StackPathCDN = require('../')
 
 if (process.argv.length < 4) {
-    console.log('Usage: %s ZONEID CERT KEY [CA BUNDLE]');
-    process.exit(1);
+  console.log('Usage: %s ZONEID CERT KEY [CA BUNDLE]')
+  process.exit(1)
 }
 
-var zid = process.argv[2];
-var crt = fs.readFileSync(path.resolve(process.argv[3]), {encoding: 'utf8'}).trim();
-var key = fs.readFileSync(path.resolve(process.argv[4]), {encoding: 'utf8'}).trim();
+const zid = process.argv[2]
+const crt = fs.readFileSync(path.resolve(process.argv[3]), {encoding: 'utf8'}).trim()
+const key = fs.readFileSync(path.resolve(process.argv[4]), {encoding: 'utf8'}).trim()
 
-var ca;
+let ca
 if (process.argv[5]) {
-    ca = fs.readFileSync(path.resolve(process.argv[5]), {encoding: 'utf8'}).trim();
+  ca = fs.readFileSync(path.resolve(process.argv[5]), {encoding: 'utf8'}).trim()
 }
 
-max = new MaxCDN(process.env.ALIAS, process.env.KEY, process.env.SECRET);
+const stackpath = new StackPathCDN(process.env.STACKPATH_ALIAS, process.env.STACKPATH_KEY, process.env.STACKPATH_SECRET)
 
-var certs = {
-    ssl_crt: crt,
-    ssl_key: key
-};
+const certs = {
+  ssl_crt: crt,
+  ssl_key: key
+}
 
 if (typeof ca !== 'undefined') {
-    certs.ca = ca;
+  certs.ca = ca
 }
 
-https.debug = parseInt(process.env.DEBUG, 10) || 0;
-max.post(format('/zones/pull/%s/ssl.json', zid), certs, function (err, res) {
-    if (err) console.trace(err);
-    console.dir(res);
-});
-
+https.debug = parseInt(process.env.DEBUG, 10) || 0
+stackpath.post(format('/zones/%s/ssl', zid), certs, function (err, res) {
+  if (err) console.trace(err)
+  console.dir(res)
+})

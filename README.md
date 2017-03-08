@@ -1,15 +1,15 @@
 # node-maxcdn
 
-MaxCDN API for Node.js
+StackPath API for Node.js
 
-[![Build Status](https://travis-ci.org/MaxCDN/node-maxcdn.png?branch=master)](https://travis-ci.org/MaxCDN/node-maxcdn) &nbsp; [![Dependancy Status](https://david-dm.org/MaxCDN/node-maxcdn.png)](https://david-dm.org/MaxCDN/node-maxcdn) &nbsp; [![NPM Version](https://badge.fury.io/js/maxcdn.png)](https://badge.fury.io/js/maxcdn) &nbsp;  <iframe src="http://jmervine.github.io/npm-downloads-badge/badge.html?module=maxcdn&name=false" allowtransparency="true" frameborder="0" scrolling="0" width="125" height="20" style="vertical-align: bottom"></iframe>
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
 > Note: Unit tests have been run agaist latest 4.x and 5.x versions of Node.js.
 
 ## Install
 
 ```
-$ npm install maxcdn
+$ npm install stackpath
 ```
 
 ## Usage

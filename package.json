@@ -1,35 +1,40 @@
 {
-  "name": "maxcdn",
-  "version": "0.2.2",
-  "description": "MaxCDN API for Node.js",
+  "name": "stackpath",
+  "version": "0.0.1",
+  "description": "StackPath API for Node.js",
   "main": "index.js",
   "scripts": {
     "test": "tape ./test/*_test.js",
     "int": "tape ./test/*_int.js",
+    "lint": "eslint .",
     "benchmark": "node ./test/benchmark.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maxcdn/node-maxcdn.git"
+    "url": "https://github.com/geoffdutton/node-stackpath.git"
   },
   "keywords": [
     "cdn",
-    "maxcdn",
-    "netdna",
+    "stackpath",
     "oauth",
     "Content Delivery Network"
   ],
-  "author": "Joshua P. Mervine <joshua@mervine.net>",
+  "author": "Geoff Dutton <g.dutton@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MaxCDN/node-maxcdn/issues"
+    "url": "https://github.com/geoffdutton/node-stackpath/issues"
   },
   "dependencies": {
     "oauth": "~0.9.11"
   },
   "devDependencies": {
-    "tape": "~2.3.0",
     "async": "~0.2.9",
-    "http-debug": "~0.1.1"
+    "eslint": "^3.17.1",
+    "eslint-config-standard": "^7.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
+    "http-debug": "~0.1.1",
+    "tape": "~2.3.0"
   }
 }

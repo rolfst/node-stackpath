@@ -1,45 +1,43 @@
 #!/usr/bin/env node
 
-var MaxCDN = require('../');
-var maxcdn = new MaxCDN(process.env.ALIAS, process.env.KEY, process.env.SECRET);
+const StackPathCDN = require('../')
+const stackpath = new StackPathCDN(process.env.STACKPATH_ALIAS, process.env.STACKPATH_KEY, process.env.STACKPATH_SECRET)
 
 /***
  * Get account information.
  */
-maxcdn.get('account.json', function(err, results) {
-    console.log('GET account.json')
-    if (err) {
+stackpath.get('account', function (err, results) {
+  console.log('GET account.json')
+  if (err) {
         // error handling
-        console.trace(err);
-    } else {
+    console.trace(err)
+  } else {
         // print results
-        console.dir(results);
-    }
-});
+    console.dir(results)
+  }
+})
 
 /***
  * Get account address information.
  */
-maxcdn.get('account.json/address', function(err, results) {
-    console.log('account.json/address');
-    if (err) {
+stackpath.get('account/address', function (err, results) {
+  console.log('account/address')
+  if (err) {
         // error handling
-        console.trace(err);
-    } else {
+    console.trace(err)
+  } else {
         // print results
-        console.dir(results);
-    }
-});
+    console.dir(results)
+  }
+})
 
-maxcdn.get('reports/stats.json/hourly', function(err, results) {
-    console.log('reports/stats.json/hourly summary');
-    if (err) {
+stackpath.get('reports/stats/hourly', function (err, results) {
+  console.log('reports/stats/hourly summary')
+  if (err) {
         // error handling
-        console.trace(err);
-    } else {
+    console.trace(err)
+  } else {
         // print results
-        console.dir(results.data.summary);
-    }
-});
-
-// vim: ft=javascript ai sw=4 sts=4 et:
+    console.dir(results.data.summary)
+  }
+})

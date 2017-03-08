@@ -1,82 +1,79 @@
 #!/usr/bin/env node
 
-var path = require('path');
-var MaxCDN = require('../');
+const path = require('path')
+const StackPathCDN = require('../')
 
-if (!process.env.ALIAS || !process.env.KEY || !process.env.SECRET || process.argv.length === 2 ) {
-    usage();
+if (process.argv.length === 2) {
+  usage()
 }
 
-var maxcdn = new MaxCDN(process.env.ALIAS, process.env.KEY, process.env.SECRET);
+const stackpath = new StackPathCDN(process.env.STACKPATH_ALIAS, process.env.STACKPATH_KEY, process.env.STACKPATH_SECRET)
 
 /***
  * Pull Zone ID from CLI arguments.
  */
-var zoneId = process.argv[2];
+const zoneId = process.argv[2]
 
 /***
  * Optionally, pull files from CLI arguments.
  */
-var files  = process.argv.slice(3, process.argv.length);
+const files = process.argv.slice(3, process.argv.length)
 
 /***
- * URL to MaxCDN API.
+ * URL to StackPathCDN API.
  */
-var url     = path.join('zones', 'pull.json', zoneId, 'cache');
+const url = path.join('sites', zoneId, 'cache')
 
 /***
- * Define callback for OAuth requests to MaxCDN.
+ * Define callback for OAuth requests to StackPathCDN.
  */
-function callback(error, results) {
+function callback (error, res) {
     /***
      * Error handling.
      */
-    if (error) {
-        console.trace(error);
-        return;
-    }
+  if (error) {
+    console.trace(error)
+    return
+  }
 
     /***
      * Report success.
      */
-    console.log('Cache successfully cleared!');
+  console.log('Cache successfully cleared!', res)
 }
 
-if (files == 0) {
+if (files === 0) {
     /***
      * If no files are passed, purge full cache.
      */
-    maxcdn.delete(url, callback);
+  stackpath.delete(url, callback)
 } else {
     /***
      * Otherwise, only purge files specified.
      */
-    files = { files: files };
-    maxcdn.delete(url, files, callback);
+  stackpath.delete(url, { files: files }, callback)
 }
 
 /***
  * Usage
  */
-function usage() {
-    console.log('');
-    console.log('Usage: clear_cache.js ZONEID [FILES]');
-    console.log('');
-    console.log('  Credentials:');
-    console.log('');
-    console.log('  Add your credentials to your environment, like so:');
-    console.log('');
-    console.log('  $ export ALIAS=comapny_alias');
-    console.log('  $ export KEY=consumer_key');
-    console.log('  $ export SECRET=consumer_secret');
-    console.log('  $ ./clear_cache.js 121212 /master.css /another.css');
-    console.log('');
-    console.log('  Or by passing them to the script.');
-    console.log('');
-    console.log('  $ ALIAS=comapny_alias KEY=consumer_key SECRET=consumer_secret ./clear_cache.js \'');
-    console.log('       121212 /master.css /another.css');
-    console.log('');
-    process.exit();
+function usage () {
+  console.log('')
+  console.log('Usage: clear_cache.js ZONEID [FILES]')
+  console.log('')
+  console.log('  Credentials:')
+  console.log('')
+  console.log('  Add your credentials to your environment, like so:')
+  console.log('')
+  console.log('  $ export STACKPATH_ALIAS=comapny_alias')
+  console.log('  $ export STACKPATH_KEY=consumer_key')
+  console.log('  $ export STACKPATH_SECRET=consumer_secret')
+  console.log('  $ ./clear_cache.js 121212 /master.css /another.css')
+  console.log('')
+  console.log('  Or by passing them to the script.')
+  console.log('')
+  console.log('  $ STACKPATH_ALIAS=comapny_alias STACKPATH_KEY=consumer_key STACKPATH_SECRET=consumer_secret ./clear_cache.js \'')
+  console.log('       121212 /master.css /another.css')
+  console.log('')
+  process.exit()
 }
-
-// vim: ft=javascript ai sw=4 sts=4 et:
