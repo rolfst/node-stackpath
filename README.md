@@ -1,10 +1,10 @@
-# node-maxcdn
+# node-stackpath
 
 StackPath API for Node.js
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
-> Note: Unit tests have been run agaist latest 4.x and 5.x versions of Node.js.
+> Note: Unit tests have been run against latest 4.x and 6.x versions of Node.js.
 
 ## Install
 
@@ -17,13 +17,13 @@ $ npm install stackpath
 #### Initialize
 
 ```
-var maxcdn = require('maxcdn').create('COMPANY_ALIAS', 'CONSUMER_KEY', 'CONSUMER_SECRET');
+const stackpath = require('stackpath').create('COMPANY_ALIAS', 'CONSUMER_KEY', 'CONSUMER_SECRET');
 ```
 
-#### `maxcdn.get`
+#### `stackpath.get`
 
 ```
-maxcdn.get('reports/stats.json/daily', function(err, results) {
+stackpath.get('reports/stats/daily', function(err, results) {
     if (err) {
         console.trace(err);
         return;
@@ -32,14 +32,14 @@ maxcdn.get('reports/stats.json/daily', function(err, results) {
 });
 ```
 
-#### `maxcdn.put`
+#### `stackpath.put`
 
 ```
 var updates = {
     street1: '555 Some St.',
     street2: 'Suite #1'
 };
-maxcdn.put('account.json/address', updates, function(err, results) {
+maxcdn.put('account/address', updates, function(err, results) {
     if (err) {
         console.trace(err);
         return;
@@ -48,10 +48,10 @@ maxcdn.put('account.json/address', updates, function(err, results) {
 });
 ```
 
-#### `maxcdn.post`
+#### `stackpath.post`
 
 ```
-maxcdn.post('zones/pull.json', { name: 'testname', url: 'http://www.example.com' }, function(err, results) {
+stackpath.post('sites', { name: 'testname', url: 'http://www.example.com' }, function(err, results) {
     if (err) {
         console.trace(err);
         return;
@@ -60,15 +60,15 @@ maxcdn.post('zones/pull.json', { name: 'testname', url: 'http://www.example.com'
 });
 ```
 
-#### `maxcdn.del`
+#### `stackpath.del`
 
-> Has alias of `maxcdn.delete`.
+> Has alias of `stackpath.delete`.
 
 ```
-var zoneId = '121212';
+const zoneId = '121212';
 
 // full cache
-maxcdn.del('zones/pull.json/'+zoneId+'/cache', function(err, results) {
+stackpath.del(`sites/${zoneId}/cache`, function(err, results) {
     if (err) {
         console.trace(err);
         return;
@@ -79,8 +79,8 @@ maxcdn.del('zones/pull.json/'+zoneId+'/cache', function(err, results) {
 });
 
 // specific files
-var files = { files: [ '/master.css', '/another.css' ] };
-maxcdn.del('zones/pull.json/'+zoneId+'/cache', files, function(err, results) {
+const files = { files: [ '/master.css', '/another.css' ] };
+stackpath.del(`sites/${zoneId}/cache`, files, function(err, results) {
     if (err) {
         console.trace(err);
         return;
@@ -99,16 +99,16 @@ maxcdn.del('zones/pull.json/'+zoneId+'/cache', files, function(err, results) {
 #### Unit Tests
 
 ```
-$ make setup test
+$ npm test
 ```
 
 #### Integration Tests
 
 ```
-$ ALIAS=alias KEY=key SECRET=secret make setup int
+$ STACKPATH_ALIAS=alias STACKPATH_KEY=key STACKPATH_SECRET=secret npm run int
 ```
 
 > **Troubleshooting:**
 >
-> Ensure that you `ALIAS`, `KEY` and `SECRET` values are correct and that you're running integration on a host with a whitelisted IP address.
+> Ensure that you `STACKPATH_ALIAS`, `STACKPATH_KEY` and `STACKPATH_SECRET` values are correct and that you're running integration on a host with a whitelisted IP address.
 
