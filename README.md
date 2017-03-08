@@ -1,8 +1,9 @@
 # node-stackpath
 
-StackPath API for Node.js
+StackPath API for Node.js: [https://api.stackpath.com/](https://api.stackpath.com/)
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+[![Build Status](https://travis-ci.org/geoffdutton/node-stackpath.svg?branch=master)](https://travis-ci.org/geoffdutton/node-stackpath)
 
 > Note: Unit tests have been run against latest 4.x and 6.x versions of Node.js.
 
