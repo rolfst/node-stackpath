@@ -1,6 +1,5 @@
-'use strict'
-const OAuth = require('oauth').OAuth
-const querystring = require('querystring')
+var OAuth = require('oauth').OAuth
+var querystring = require('querystring')
 
 function create (alias, key, secret) {
   return new StackPathCDN(alias, key, secret)
@@ -22,7 +21,7 @@ function StackPathCDN (alias, key, secret) {
   this.key = key
   this.secret = secret
 
-  const headers = {
+  var headers = {
     'Accept': '*/*',                         // << from OAuth default headers.
     'Connection': 'close',                   // << from OAuth default headers.
     'User-Agent': 'Node StackPathCDN API Client'} // << custom User-Agent
@@ -61,7 +60,8 @@ StackPathCDN.prototype._makeObject = function _makeObject (params) {
 }
 
 StackPathCDN.prototype._makeUrl = function _makeURL (p) {
-  return `${this.API_SERVER}/${this.alias}${p[0] === '/' ? '' : '/'}${p}`
+  var q = p[0] === '/' ? '' : '/';
+  return this.API_SERVER} + '/' + this.alias + q + p
 }
 
 StackPathCDN.prototype.get = function get (url, callback) {
@@ -91,8 +91,8 @@ function del (url, files, callback) {
      * Delete wants "files[0]=foo.css&files[1]=bar.css"
      ***/
   function stringify (arr) {
-    let f = ''
-    for (let i = 0; i < arr.length; i++) {
+    var f = ''
+    for (var i = 0; i < arr.length; i++) {
       f += 'files[' + i + ']=' + querystring.escape(arr[i])
       if (i !== arr.length - 1) f += '&'
     }
